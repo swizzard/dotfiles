@@ -1,5 +1,4 @@
 source ~/.bashrc
-source ~/.secrets
 
 function pget() { pip install git+"$@"; }
 
