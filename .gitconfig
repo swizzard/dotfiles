@@ -1,0 +1,17 @@
+# This is Git's per-user configuration file.
+[core]
+# Please adapt and uncomment the following lines:
+	user = Sam Raker
+	email = sraker@elitedaily.com
+	editor = vim
+[color]
+	branch = true
+	diff = true
+	decorate = true
+	grep = true
+	status = true
+	ui = true
+[push]
+	default = matching
+[pull]
+	default = matching
