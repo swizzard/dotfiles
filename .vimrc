@@ -553,3 +553,7 @@ set number
 let $PATH = $PATH . ":/Users/samuelraker/Library/Haskell/bin"
 
 set clipboard=unnamed
+
+nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
+autocmd FileReadPost * TagbarOpen
