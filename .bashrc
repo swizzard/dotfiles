@@ -59,11 +59,6 @@ shopt -u sourcepath
 
 unset -v config
 
-### Added by the Heroku Toolbelt
-if [[ -a /usr/local/heroku/bin ]];
-  then export PATH="/usr/local/heroku/bin:$PATH";
-fi
-
 function fuck() {
   killall -9 $2;
   if [ $? == 0 ]
@@ -86,9 +81,15 @@ fi
 
 if which tmux 2>&1 >/dev/null && [ -t 1 ]; then
     #if not inside a tmux session, and if no session is started, start a new session
-    test -z "$TMUX" && (tmux attach || tmux new-session)
+    test -z "$TMUX" && (tmux attach || tmux -2 new-session)
 fi
-export GOPATH=~/go-stuff
-export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:~/Library/Haskell/bin:~/.cabal/bin:~/.local/bin
 
 set -o vi
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+fi
+GPG_TTY=$(tty)
+export GPG_TTY

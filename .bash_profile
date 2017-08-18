@@ -6,18 +6,18 @@ parse_git_branch() {
 git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
-export PS1="\u(\w)|\033[32m\]\$(parse_git_branch)\[\033[00m\]|$ "
+export PS1="\w|\033[32m\]\$(parse_git_branch)\[\033[00m\]|$ "
 export PS2=""
 
 # Set editor
-EDITOR='nano'
+EDITOR='vim'
 VISUAL=$EDITOR
 export EDITOR VISUAL
 
 # lein stuff
-LEIN_REPL_HOST='127.0.0.1'
-LEIN_REPL_PORT=8080
-export LEIN_REPL_HOST LEIN_REPL_PORT
+# LEIN_REPL_HOST='127.0.0.1'
+# LEIN_REPL_PORT=8080
+# export LEIN_REPL_HOST LEIN_REPL_PORT
 
 # Browser
 if [ -n "$DISPLAY" ]; then
@@ -48,3 +48,32 @@ function wcls() {
 }
 
 function dmerge() { cp -R $1/* $2/; }
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/Users/samuelraker/.local/bin:$PATH"
+# eval $(gpg-agent --daemon --enable-ssh-support "${HOME}/.gpg-agent-info")
+
+function pscs() { if [ -z "$1"];
+                  then
+                    D=$(pwd)
+                  else
+                    D=$1
+                  fi
+                  echo "$D"
+                  /usr/local/bin/psc-ide-server --port=4244 --directory=$D&
+                };
+
+# virtualenvwrapper
+export WORKON_HOME=$HOME/Envs
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
+  source /usr/local/bin/virtualenvwrapper.sh
+else
+  echo "WARNING: Can't find virtualenvwrapper.sh"
+fi
+
+alias bu='brew update && brew upgrade && brew cleanup'
+
+export PATH="$HOME/.cargo/bin:$PATH"
