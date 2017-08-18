@@ -98,7 +98,7 @@ Plug 'int3/vim-extradite'
 
 " Bars, panels, and files
 Plug 'scrooloose/nerdtree'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 
@@ -109,6 +109,7 @@ Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'easymotion/vim-easymotion'
+Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Allow pane movement to jump out of vim into tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -138,6 +139,7 @@ Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'frigoeu/psc-ide-vim', { 'for': 'purescript' }
 Plug 'benmills/vimux'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+
 
 if filereadable(hvn_user_plugins)
   execute 'source '. hvn_user_plugins
@@ -220,16 +222,20 @@ nnoremap <leader>mo :set mouse=<cr>
 
 " Default to mouse mode on
 set mouse=a
+
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 " }}}
 
 " Colors and Fonts {{{
 
 try
-  colorscheme solarized
+  colorscheme wombat256mod
 catch
 endtry
-
-set background=light
 
 " Adjust signscolumn to match wombat
 hi! link SignColumn LineNr
@@ -314,11 +320,10 @@ let g:ctrlp_custom_ignore = { 'dir': '\v[\/](.git|.cabal-sandbox|.stack-work)$' 
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 2 spaces
+" 1 tab == 2 spaces, unless the file is already
+" using tabs, in which case tabs will be inserted.
 set shiftwidth=2
+set softtabstop=2
 set tabstop=2
 
 " Linebreak on 500 characters
@@ -580,16 +585,4 @@ if filereadable(hvn_config_post)
   execute 'source '. hvn_config_post
 endif
 
-set runtimepath^=/Users/samuelraker/.vim/bundle/vim-erlang-compiler
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-au Syntax * RainbowParenthesesLoadChevrons
-
-let g:psc_ide_server_port=4244
-let g:filetype_pl="prolog"
-
 " }}}
-"
