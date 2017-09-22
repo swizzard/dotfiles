@@ -73,12 +73,6 @@ parse_git_branch() {
 git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-if [[ -a /Applications ]]; then
-  function chrome() {
-    open /Applications/Google\ Chrome.app --new-tab-page-1 $1 &
-  };
-fi
-
 if which tmux 2>&1 >/dev/null && [ -t 1 ]; then
     #if not inside a tmux session, and if no session is started, start a new session
     test -z "$TMUX" && (tmux attach || tmux -2 new-session)

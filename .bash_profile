@@ -67,13 +67,12 @@ export WORKON_HOME=$HOME/Envs
 export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 export PIP_RESPECT_VIRTUALENV=true
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
-if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
-  source /usr/local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2
+VEWPATH=/home/sam/.local/bin/virtualenvwrapper.sh
+if [[ -r $VEWPATH ]]; then
+  source $VEWPATH
 else
   echo "WARNING: Can't find virtualenvwrapper.sh"
 fi
-
-alias bu='brew update && brew upgrade && brew cleanup'
 
 export PATH="$HOME/.cargo/bin:$PATH"
